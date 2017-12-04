@@ -10,9 +10,30 @@ class Vote extends PureComponent {
   constructor() {
     super();
     this.getActionClass = this.getActionClass.bind(this);
+    this.state = {
+      correctScore: 0
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    this._correctVoteScore(this.props.document.currentUserVotes, nextProps.document.currentUserVotes);
+  }
+
+  _correctVoteScore(thisVotes, nextVotes) {
+    if (thisVotes.length > 0 && nextVotes.length > 0 &&
+      thisVotes[0].voteType !== nextVotes[0].voteType) {
+      if (thisVotes[0].voteType === 'upvote') { // Up > Down vote
+        this.setState({correctScore: -1})
+      } else { // Down > Up vote
+        this.setState({correctScore: 1})
+      }
+      return true;
+    }
+
+    if (this.state.correctScore !== 0) {
+      this.setState({correctScore: 0})
+    }
+    return false;
   }
 
   vote(e, voteType) {
@@ -29,12 +50,6 @@ class Vote extends PureComponent {
     } 
   }
 
-  myCurrentVoteScore() {
-    let myVoteScore = 0;
-    if (hasVotedClient({document: this.props.document, voteType: 'upvote'})) myVoteScore++;
-    if (hasVotedClient({document: this.props.document, voteType: 'downvote'})) myVoteScore--;
-    return myVoteScore;
-  }
   hasVoted(voteType) {
     return hasVotedClient({document: this.props.document, voteType: voteType})
   }
@@ -51,8 +66,7 @@ class Vote extends PureComponent {
 
   render() {
     const {baseScore} = this.props.document;
-    const voteScore = baseScore;
-    // const voteScore = baseScore + this.myCurrentVoteScore();
+    const voteScore = baseScore + this.state.correctScore;
 
     return (
       <div className={this.getActionClass()}>
