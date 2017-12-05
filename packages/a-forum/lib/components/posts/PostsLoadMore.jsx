@@ -9,7 +9,7 @@ const PostsLoadMore = ({loading, loadMore, count, totalCount}) => {
       <a className="posts-load-more-link" href="#" onClick={e => {e.preventDefault(); loadMore();}}>
         <span><FormattedMessage id="posts.load_more"/></span>
         &nbsp;
-        {totalCount ? <span className="load-more-count">{`(${count}/${totalCount})`}</span> : null}
+        {/*totalCount ? <span className="load-more-count">{`(${count}/${totalCount})`}</span> : null*/}
       </a>
       {loading ? <div className="posts-load-more-loader"><Components.Loading/></div> : null}
     </div>

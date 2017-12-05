@@ -47,7 +47,9 @@ class Vote extends PureComponent {
       this.props.flash(this.context.intl.formatMessage({id: 'users.please_log_in'}));
     } else {
       this.props.vote({document, voteType: voteType, collection, currentUser: this.props.currentUser});
-    } 
+    }
+
+    this.forceUpdate();
   }
 
   hasVoted(voteType) {

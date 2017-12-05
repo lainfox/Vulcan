@@ -29,6 +29,10 @@ class PostsPage extends Component {
           
           <Components.PostsItem post={post} currentUser={this.props.currentUser} />
 
+          <div className="posts-item-vote">
+            <Components.Vote collection={Posts} document={post} currentUser={this.props.currentUser} />
+          </div>
+          
           {post.htmlBody ? <div className="posts-page-body" dangerouslySetInnerHTML={htmlBody}></div> : null}
 
           <Components.PostsCommentsThread terms={{postId: post._id, view: 'postComments'}} />

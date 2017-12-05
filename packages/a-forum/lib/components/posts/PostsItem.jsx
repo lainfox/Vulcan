@@ -7,7 +7,6 @@ import { Posts } from '../../modules/posts/index.js';
 import moment from 'moment';
 
 class PostsItem extends PureComponent {
-
   renderCategories() {
     return this.props.post.categories && this.props.post.categories.length > 0 ? <Components.PostsCategories post={this.props.post} /> : "";
   }
@@ -35,7 +34,6 @@ class PostsItem extends PureComponent {
 
     return (
       <div className={postClass}>
-
         <div className="posts-item-vote">
           <Components.Vote collection={Posts} document={post} currentUser={this.props.currentUser} />
         </div>
