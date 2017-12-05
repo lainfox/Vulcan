@@ -22,7 +22,7 @@ const Layout = ({currentUser, children, currentRoute}) =>
 
       <Components.FlashMessages />
 
-      <Components.Newsletter />
+      {/*<Components.Newsletter />*/}
 
       {children}
 
