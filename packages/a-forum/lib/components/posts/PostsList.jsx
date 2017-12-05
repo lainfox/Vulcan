@@ -8,11 +8,12 @@ import classNames from 'classnames';
 
 const Error = ({error}) => <Alert className="flash-message" bsStyle="danger"><FormattedMessage id={error.id} values={{value: error.value}}/>{error.message}</Alert>
 
-class PostsList extends React.PureComponent {
+class PostsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resultList: []
+      resultList: [],
+      fixRender: 0
     }
   }
 
@@ -22,11 +23,12 @@ class PostsList extends React.PureComponent {
     }
   }
   componentWillUpdate(nextProps, nextState) {
-    if (this.props.terms.view !== nextProps.terms.view ||
+    if (
+      (this.props.terms.view !== nextProps.terms.view ||
       !this.props.results ||
       this.props.results.length !== nextProps.results.length
+      ) && nextProps.results
     ) {
-      // console.warn('re setstate')
       this.setState({resultList: nextProps.results.map(post => post._id)})   
     }
   }
